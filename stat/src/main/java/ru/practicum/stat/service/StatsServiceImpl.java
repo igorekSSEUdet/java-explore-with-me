@@ -31,31 +31,22 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatOutDto> getHits(String start, String end, List<String> uris, Boolean unique) {
-        List<StatOutDto> stats = List.of();
+        LocalDateTime startDate = LocalDateTime.parse(start, Constants.DATE_TIME_SPACE);
+        LocalDateTime endDate = LocalDateTime.parse(end, Constants.DATE_TIME_SPACE);
+
         if (uris.isEmpty()) {
             if (unique) {
-                stats = statsRepository.countByTimestampUniqueIp(
-                        LocalDateTime.parse(start, Constants.DATE_TIME_SPACE),
-                        LocalDateTime.parse(end, Constants.DATE_TIME_SPACE));
+                return statsRepository.countByTimestampUniqueIp(startDate, endDate);
             } else {
-                stats = statsRepository.countByTimestamp(
-                        LocalDateTime.parse(start, Constants.DATE_TIME_SPACE),
-                        LocalDateTime.parse(end, Constants.DATE_TIME_SPACE));
+                return statsRepository.countByTimestamp(startDate, endDate);
             }
         } else {
             if (unique) {
-                stats = statsRepository.countByTimestampAndListUniqueIp(
-                        LocalDateTime.parse(start, Constants.DATE_TIME_SPACE),
-                        LocalDateTime.parse(end, Constants.DATE_TIME_SPACE),
-                        uris);
+                return statsRepository.countByTimestampAndListUniqueIp(startDate, endDate, uris);
             } else {
-                stats = statsRepository.countByTimestampAndList(
-                        LocalDateTime.parse(start, Constants.DATE_TIME_SPACE),
-                        LocalDateTime.parse(end, Constants.DATE_TIME_SPACE),
-                        uris);
+                return statsRepository.countByTimestampAndList(startDate, endDate, uris);
             }
         }
-        return stats;
     }
 
     @Override
