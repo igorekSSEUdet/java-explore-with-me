@@ -30,10 +30,10 @@ public interface StatsRepository extends JpaRepository<Stat, Long> {
             "ORDER BY count(s.id) DESC")
     List<StatOutDto> countByTimestampAndList(LocalDateTime start, LocalDateTime end, List<String> uris);
 
-    @Query("SELECT new ru.practicum.stats.StatOutDto(s.app, s.uri, count(s.id)) " +
+    @Query("SELECT new ru.practicum.stats.StatOutDto(s.app, s.uri, count(distinct s.ip)) " +
             "FROM Stat s " +
             "WHERE s.uri IN :uris AND s.timestamp BETWEEN :start AND :end " +
-            "GROUP BY s.app, s.uri, s.ip " +
-            "ORDER BY count(s.id) DESC")
+            "GROUP BY s.app, s.uri " +
+            "ORDER BY count(distinct s.ip) DESC")
     List<StatOutDto> countByTimestampAndListUniqueIp(LocalDateTime start, LocalDateTime end, List<String> uris);
 }

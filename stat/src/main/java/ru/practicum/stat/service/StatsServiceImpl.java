@@ -32,7 +32,7 @@ public class StatsServiceImpl implements StatsService {
     @Override
     public List<StatOutDto> getHits(String start, String end, List<String> uris, Boolean unique) {
         List<StatOutDto> stats = List.of();
-        if (uris.size() == 0) {
+        if (uris.isEmpty()) {
             if (unique) {
                 stats = statsRepository.countByTimestampUniqueIp(
                         LocalDateTime.parse(start, Constants.DATE_TIME_SPACE),
