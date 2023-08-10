@@ -1,5 +1,9 @@
 server:
-  port: 9090
+  port: 8080
+
+stats-server:
+#  url: http://stats-server:9090
+  url: http://localhost:9090
 
 logging:
   level:
@@ -39,9 +43,13 @@ spring:
     activate:
       on-profile: ci,test
   datasource:
-    url: jdbc:h2:mem:stats-db
+    url: jdbc:h2:mem:ewm-db
     driverClassName: org.h2.Driver
     username: test
     password: test
   h2:
     console.enabled: true
+stats-server:
+  url: http://localhost:9090
+
+
