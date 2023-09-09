@@ -29,6 +29,7 @@ public class CommentController {
         log.info("Calling POST: /users/{userId}/events/{eventId}/comments with 'userId': {}, 'eventId': {}," +
                 " 'newCommentDto': {}", userId, eventId, newCommentDto);
         return commentService.addUserComment(userId, eventId, newCommentDto);
+        //commit
     }
 
     @GetMapping ("/events/{eventId}/comments/{commentId}")
